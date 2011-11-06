@@ -295,6 +295,35 @@ test("type", function() {
 	equals( jQuery.type(document.getElementsByTagName("*")), "object", "NodeList" );
 });
 
+test("isType", function() {
+//	expect(23);
+	expect(18);
+
+	ok( jQuery.isType(null, null), "null" );
+	ok( jQuery.isType( undefined, undefined ), "undefined" );
+	ok( jQuery.isType( true, Boolean ), "Boolean" );
+	ok( jQuery.isType( false, Boolean ), "Boolean" );
+	ok( jQuery.isType( Boolean(true), Boolean ), "Boolean" );
+	ok( jQuery.isType( 0, Number ), "Number" );
+	ok( jQuery.isType( 1, Number ), "Number" );
+	ok( jQuery.isType( Number(1), Number ), "Number" );
+	ok( jQuery.isType( "", String ), "String" );
+	ok( jQuery.isType( "a", String ), "String" );
+	ok( jQuery.isType( String("a"), String ), "String" );
+	ok( jQuery.isType( {}, Object ), "Object" );
+	ok( jQuery.isType( /foo/, RegExp ), "RegExp" );
+	ok( jQuery.isType( new RegExp("asdf"), RegExp ), "RegExp" );
+	ok( jQuery.isType( [1], Array ), "Array" );
+	ok( jQuery.isType( new Date(), Date ), "Date" );
+	ok( jQuery.isType( new Function("return;"), Function ), "Function" );
+	ok( jQuery.isType( function(){}, Function ), "Function" );
+	// equals( jQuery.type(window), "object", "Window" );
+	// equals( jQuery.type(document), "object", "Document" );
+	// equals( jQuery.type(document.body), "object", "Element" );
+	// equals( jQuery.type(document.createTextNode("foo")), "object", "TextNode" );
+	// equals( jQuery.type(document.getElementsByTagName("*")), "object", "NodeList" );
+});
+
 test("isPlainObject", function() {
 	expect(15);
 

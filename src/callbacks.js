@@ -61,15 +61,13 @@ jQuery.Callbacks = function( flags ) {
 			var i,
 				length,
 				elem,
-				type,
 				actual;
 			for ( i = 0, length = args.length; i < length; i++ ) {
 				elem = args[ i ];
-				type = jQuery.type( elem );
-				if ( type === "array" ) {
+				if ( jQuery.isType(elem, Array) ) {
 					// Inspect recursively
 					add( elem );
-				} else if ( type === "function" ) {
+				} else if ( jQuery.isType(elem, Function) ) {
 					// Add if not in unique mode and callback is not in
 					if ( !flags.unique || !self.has( elem ) ) {
 						list.push( elem );

@@ -471,11 +471,11 @@ jQuery.extend({
 	// Since version 1.3, DOM methods and functions like alert
 	// aren't supported. They return false on IE (#2968).
 	isFunction: function( obj ) {
-		return jQuery.type(obj) === "function";
+		return jQuery.isType(obj, Function);
 	},
 
 	isArray: Array.isArray || function( obj ) {
-		return jQuery.type(obj) === "array";
+		return jQuery.isType(obj, Array);
 	},
 
 	// A crude way of determining if an object is a window
@@ -493,11 +493,17 @@ jQuery.extend({
 			class2type[ toString.call(obj) ] || "object";
 	},
 
+	isType: Function.name ? function( obj, type ) {
+		return obj != null && type ? obj.constructor === type || obj.constructor.name === type.name : obj === type;
+	} : function( obj, type ) {
+		return obj != null && type ? obj.constructor === type || obj.constructor.toString() === type.toString() : obj === type;
+	},
+
 	isPlainObject: function( obj ) {
 		// Must be an Object.
 		// Because of IE, we also have to check the presence of the constructor property.
 		// Make sure that DOM nodes and window objects don't pass through, as well
-		if ( !obj || jQuery.type(obj) !== "object" || obj.nodeType || jQuery.isWindow( obj ) ) {
+		if ( !obj || !jQuery.isType(obj, Object) || obj.nodeType || jQuery.isWindow( obj ) ) {
 			return false;
 		}
 
@@ -670,9 +676,8 @@ jQuery.extend({
 			// The extra typeof function check is to prevent crashes
 			// in Safari 2 (See: #3039)
 			// Tweaked logic slightly to handle Blackberry 4.7 RegExp issues #6930
-			var type = jQuery.type( array );
 
-			if ( array.length == null || type === "string" || type === "function" || type === "regexp" || jQuery.isWindow( array ) ) {
+			if ( array.length == null || jQuery.isType(array, String) || jQuery.isFunction(array) || jQuery.isType(array, RegExp) || jQuery.isWindow( array ) ) {
 				push.call( ret, array );
 			} else {
 				jQuery.merge( ret, array );
